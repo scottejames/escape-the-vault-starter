@@ -58,6 +58,9 @@ S.#.
 - `K = 1` → `-1`. That cost-2 door isn't optional, and one key won't
   cover it.
 
+Want a slower, more thorough walk through a case like this, at three
+different key budgets? See [EXAMPLE.md](EXAMPLE.md).
+
 ### Constraints
 
 Nothing sneaky here — just the numbers to design around:
