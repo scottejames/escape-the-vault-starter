@@ -1,0 +1,8 @@
+name=04_worked_example_k2
+k=2
+expected=6
+grid=
+S.#.
+.##.
+.2..
+##1E

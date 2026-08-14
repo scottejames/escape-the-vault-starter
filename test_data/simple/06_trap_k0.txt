@@ -1,0 +1,7 @@
+name=06_trap_k0
+k=0
+expected=-1
+grid=
+S.5.E
+.###.
+..1..

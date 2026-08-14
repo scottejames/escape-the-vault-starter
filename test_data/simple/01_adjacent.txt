@@ -1,0 +1,5 @@
+name=01_adjacent
+k=0
+expected=1
+grid=
+SE

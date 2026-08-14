@@ -1,0 +1,5 @@
+name=03_door_too_dear
+k=3
+expected=-1
+grid=
+S9E

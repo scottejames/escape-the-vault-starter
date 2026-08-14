@@ -1,0 +1,7 @@
+name=07_trap_k2
+k=2
+expected=8
+grid=
+S.5.E
+.###.
+..1..
