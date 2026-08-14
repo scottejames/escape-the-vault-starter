@@ -4,34 +4,44 @@
 
 # Escape the Vault — starter project
 
-A starting point for the "Escape the Vault" coding assessment, provided in
-both Python and Java. Pick whichever language you're more comfortable in —
-they're graded the same way.
+Somewhere below street level, a small robot has just woken up in a vault
+it was never meant to see the inside of. The door's sealed, the corridors
+twist back on themselves, and scattered through the place are locked
+doors that won't budge for anything less than the exact number of keys
+they're asking for. Nobody's coming to let it out.
+
+That's where you come in. This repo is the robot's brain, waiting to be
+written — in Python or Java, whichever you're happier in. Both are graded
+the same way, so pick on comfort, not on which one you think looks better.
 
 ## The problem
 
-A robot starts at `S` in a grid and must reach the exit `E`, moving one cell
-at a time (up/down/left/right, no diagonals). Cells are:
+The robot starts at `S` and has to reach the exit `E`, moving one cell at
+a time — up, down, left, right, no cutting corners diagonally. The floor
+it's standing on is made of:
 
-- `.` — open floor
-- `#` — a wall (impassable)
-- `S` — the start (exactly one)
-- `E` — the exit (exactly one)
-- a digit `1`–`9` — a locked door costing that many keys to enter
+- `.` — open floor, safe to cross
+- `#` — a wall, solid, going nowhere
+- `S` — the start (there's exactly one)
+- `E` — the exit (also exactly one — that's the whole plan)
+- a digit `1`–`9` — a locked door, and the number is exactly how many
+  keys it costs to force it open
 
-You start with a fixed budget of `K` keys. Every time you step onto a
-locked-door cell — even one you've already been through — it costs that many
-keys from your remaining balance. Keys never regenerate, and your balance may
-never go negative.
+The robot arrives with a fixed budget of `K` keys already in its pocket.
+Step onto a locked door — even one it's already forced open once before —
+and that many keys are spent on the spot. Keys don't grow back, and the
+robot is far too sensible to run a negative balance: it will never take a
+door it can't afford.
 
-**Implement:**
+**Your job:**
 
 ```
 min_moves_to_escape(grid, K) -> int
 ```
 
-Return the minimum number of moves needed to reach `E` without the key
-balance ever dropping below zero, or `-1` if it can't be done within budget.
+Work out the fewest moves it takes to get the robot from `S` to `E`
+without the key balance ever dipping below zero. If there's genuinely no
+way out on that budget, say so honestly — return `-1`.
 
 ### Worked example
 
@@ -42,16 +52,20 @@ S.#.
 ##1E
 ```
 
-- `K = 2` → `6` (the only way out is through the cost-2 door; the cost-1
-  door doesn't help since it's a detour)
-- `K = 1` → `-1` (the cost-2 door is mandatory and unaffordable)
+- `K = 2` → `6`. The only way out runs through the cost-2 door — the
+  cost-1 door looks interesting but it's a dead-end detour, not a
+  shortcut.
+- `K = 1` → `-1`. That cost-2 door isn't optional, and one key won't
+  cover it.
 
 ### Constraints
+
+Nothing sneaky here — just the numbers to design around:
 
 - `1 ≤ rows, cols ≤ 200`
 - `0 ≤ K ≤ 50`
 - door costs are `1`–`9`
-- exactly one `S` and one `E`, both on non-wall cells
+- exactly one `S` and one `E`, and neither is buried inside a wall
 
 ## Layout
 
@@ -82,32 +96,32 @@ escape-the-vault-starter/
       test.sh               compiles, then runs TestRunner
 ```
 
-You only need to edit `escape_vault.py` / `EscapeVault.java`. Everything else
-is scaffolding: the test data, the demo runner, the test harness, and the
-shell scripts are already wired up and shouldn't need changes.
+You only need to touch `escape_vault.py` / `EscapeVault.java` — everything
+else is scaffolding that's already wired up and ready to go: the test
+data, the demo runner, the test harness, the shell scripts.
 
-Each solution file has a few empty helper methods already sketched out
-(finding `S`/`E`, bounds checking, reading a door's cost) — feel free to use
-them, change their signatures, or ignore them entirely and structure your
-solution however you like. They're there to save you typing, not to dictate
-your approach.
+Each solution file has a handful of empty helper methods already sketched
+in (finding `S`/`E`, checking you're still on the grid, reading a door's
+cost). Use them, rename them, rip them out entirely — whatever gets you
+to a solution you're happy with. They're there to save you some typing,
+not to tell you how to think about the problem.
 
 ## Test data tiers
 
-- **Simple** (`test_data/simple/`) — tiny grids (a handful of cells across).
-  Good for checking your basic movement and budget logic by inspection.
-- **Medium** (`test_data/medium/`) — bigger, hand-designed grids (up to 9×9).
-  You can still trace a route on paper if you want to double-check an
-  answer, but it takes real attention — one case forces you to add up
-  several door costs along a single corridor, another makes you compare a
+- **Simple** (`test_data/simple/`) — a handful of cells across, small
+  enough to check your movement and budget logic just by looking at it.
+- **Medium** (`test_data/medium/`) — bigger, hand-designed grids (up to
+  9×9). You can still trace a route on paper if you want to sanity-check
+  an answer, but it takes real attention — one case has you adding up
+  several door costs along a single corridor, another has you weighing a
   short expensive route against a long free one.
-- **Hard** (`test_data/hard/`) — generated mazes, 61×61 and 101×101, with
-  loops (so more than one route exists) and scattered locked doors. These
-  are big enough that solving them by hand isn't realistic — they're there
-  to check that your solution is both *correct* and *efficient* at a size
-  where that distinction actually shows up. If your test run hangs or takes
-  a very long time on the `hard` tier, that's worth investigating — it's
-  not a sign the test data is wrong.
+- **Hard** (`test_data/hard/`) — proper mazes, 61×61 and 101×101, with
+  loops (more than one way through) and locked doors scattered around.
+  Nobody's tracing these by hand — they exist to check that your solution
+  is not just *correct* but *efficient*, at a size where the difference
+  actually shows up. If a run hangs or drags on the `hard` tier, that's
+  worth digging into — the maze isn't broken, your approach probably
+  needs a rethink.
 
 ## Quick start
 
@@ -130,12 +144,15 @@ cd java
 ## Definition of done
 
 `./scripts/test.sh` should print `TOTAL: 19 passed, 0 failed` in both
-languages, ending with `Efficiency band: Efficient (< 2s total)`. Every
-test currently fails with `NOT IMPLEMENTED` until you fill in the solution.
+languages, ending with `Efficiency band: Efficient (< 2s total)`. Right
+now every test fails with `NOT IMPLEMENTED` — that's your starting line,
+not a bug.
 
-That final line is reading the `hard` tier's total time: `Efficient` if
-it's under 2 seconds, `Adequate` up to 10 seconds, `Slow` beyond that. A
-correct, reasonably efficient solution should land comfortably in
-`Efficient` — if you're seeing `Adequate` or `Slow`, or the hard tier
-doesn't finish at all, that's worth treating as a real signal about your
-approach, not just a formality.
+That last line is reading the `hard` tier's total time: `Efficient` under
+2 seconds, `Adequate` up to 10, `Slow` beyond that. A correct, reasonably
+efficient solution should land comfortably in `Efficient`. If you're
+seeing `Adequate` or `Slow`, or the hard tier just never finishes, take
+that seriously — it's telling you something real about your approach, not
+just filling space at the bottom of the output.
+
+Good luck. The robot's counting on you.
