@@ -61,7 +61,7 @@ escape-the-vault-starter/
     escape_vault.py    <- implement your solution here
     test_data.py         loads cases from ../test_data
     main.py               a small demo runner (prints one example)
-    run_tests.py           the test harness — loops over every case, prints PASS/FAIL per tier
+    run_tests.py           the test harness — every case, PASS/FAIL, timing, an efficiency band
     scripts/
       compile.sh           syntax-checks the Python files
       run.sh                runs main.py
@@ -71,7 +71,7 @@ escape-the-vault-starter/
       EscapeVault.java    <- implement your solution here
       TestData.java         loads cases from ../test_data
       Main.java              a small demo runner (prints one example)
-      TestRunner.java         the test harness — loops over every case, prints PASS/FAIL per tier
+      TestRunner.java         the test harness — every case, PASS/FAIL, timing, an efficiency band
     scripts/
       compile.sh           javac's everything into java/build
       run.sh                compiles, then runs Main
@@ -126,5 +126,12 @@ cd java
 ## Definition of done
 
 `./scripts/test.sh` should print `TOTAL: 19 passed, 0 failed` in both
-languages, with the `hard` tier finishing in well under a second. Every
+languages, ending with `Efficiency band: Efficient (< 2s total)`. Every
 test currently fails with `NOT IMPLEMENTED` until you fill in the solution.
+
+That final line is reading the `hard` tier's total time: `Efficient` if
+it's under 2 seconds, `Adequate` up to 10 seconds, `Slow` beyond that. A
+correct, reasonably efficient solution should land comfortably in
+`Efficient` — if you're seeing `Adequate` or `Slow`, or the hard tier
+doesn't finish at all, that's worth treating as a real signal about your
+approach, not just a formality.
