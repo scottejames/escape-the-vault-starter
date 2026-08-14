@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="logo.svg" alt="Escape the Vault" width="760">
+</p>
+
 # Escape the Vault — starter project
 
 A starting point for the "Escape the Vault" coding assessment, provided in

@@ -1,0 +1,74 @@
+<svg width="980" height="300" viewBox="0 0 980 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Escape the Vault">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#14171f"/>
+      <stop offset="100%" stop-color="#1a1e28"/>
+    </linearGradient>
+    <pattern id="grid" width="26" height="26" patternUnits="userSpaceOnUse">
+      <path d="M 26 0 L 0 0 0 26" fill="none" stroke="#ffffff" stroke-width="1" opacity="0.05"/>
+    </pattern>
+    <linearGradient id="beam" x1="247.5" y1="90.6" x2="371.4" y2="-4.6" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#fceac0" stop-opacity="0.75"/>
+      <stop offset="100%" stop-color="#fceac0" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+
+  <!-- background -->
+  <rect x="0" y="0" width="980" height="300" fill="url(#bg)"/>
+  <rect x="0" y="0" width="980" height="300" fill="url(#grid)"/>
+  <rect x="0" y="294" width="980" height="6" fill="#d9a75c"/>
+
+  <!-- escape beam breaking out of the vault -->
+  <polygon points="234.3,73.4 260.6,107.7 405.6,40 337.2,-49.2" fill="url(#beam)"/>
+
+  <!-- vault emblem -->
+  <g transform="translate(170,150)">
+    <circle r="112" fill="none" stroke="#d9a75c" stroke-width="16"/>
+
+    <!-- rivets -->
+    <g fill="#d9a75c">
+      <circle cx="0" cy="-112" r="7"/>
+      <circle cx="56" cy="-97" r="7"/>
+      <circle cx="97" cy="-56" r="7"/>
+      <circle cx="112" cy="0" r="7"/>
+      <circle cx="97" cy="56" r="7"/>
+      <circle cx="56" cy="97" r="7"/>
+      <circle cx="0" cy="112" r="7"/>
+      <circle cx="-56" cy="97" r="7"/>
+      <circle cx="-97" cy="56" r="7"/>
+      <circle cx="-112" cy="0" r="7"/>
+      <circle cx="-97" cy="-56" r="7"/>
+      <circle cx="-56" cy="-97" r="7"/>
+    </g>
+
+    <!-- door face -->
+    <circle r="90" fill="#1d222c"/>
+
+    <!-- wheel spokes -->
+    <g stroke="#d9a75c" stroke-width="11" stroke-linecap="round">
+      <line x1="0" y1="-22" x2="0" y2="-76"/>
+      <line x1="0" y1="22" x2="0" y2="76"/>
+      <line x1="-22" y1="0" x2="-76" y2="0"/>
+      <line x1="22" y1="0" x2="76" y2="0"/>
+      <line x1="-15" y1="-15" x2="-54" y2="-54"/>
+      <line x1="15" y1="-15" x2="54" y2="-54"/>
+      <line x1="-15" y1="15" x2="-54" y2="54"/>
+      <line x1="15" y1="15" x2="54" y2="54"/>
+    </g>
+
+    <!-- hub -->
+    <circle r="26" fill="#14171f"/>
+
+    <!-- keyhole -->
+    <circle cx="0" cy="-6" r="10" fill="#f7f3ea"/>
+    <path d="M -7 0 L 7 0 L 12 17 L -12 17 Z" fill="#f7f3ea"/>
+  </g>
+
+  <!-- wordmark -->
+  <g font-family="Arial, Helvetica, sans-serif">
+    <text x="358" y="112" font-size="40" font-weight="700" letter-spacing="6" fill="#d9a75c">ESCAPE THE</text>
+    <text x="354" y="212" font-size="106" font-weight="900" letter-spacing="1" fill="#f7f5f0">VAULT</text>
+    <line x1="358" y1="230" x2="760" y2="230" stroke="#d9a75c" stroke-width="4"/>
+    <text x="358" y="258" font-size="16" font-weight="600" letter-spacing="3" fill="#8790a0">GRID PATHFINDING &#183; CODING ASSESSMENT</text>
+  </g>
+</svg>
