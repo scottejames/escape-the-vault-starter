@@ -4,9 +4,9 @@ import java.util.List;
 /**
  * Test harness for Escape the Vault.
  *
- * Loops over every test case in ../test_data/{simple,medium,hard}/, calls
- * EscapeVault.minMovesToEscape on each, and reports PASS/FAIL per tier.
- * Exits with status 1 if any test fails.
+ * Run all cases in ../test_data/{simple,medium,hard}/ against your
+ * solution and report PASS/FAIL per case, per tier, and overall, with
+ * timing. Exits with status 1 if any test fails.
  *
  * Simple and medium cases are small enough to trace by hand; hard cases are
  * larger generated mazes intended to test how your solution scales, not
@@ -17,31 +17,66 @@ public class TestRunner {
 
     private static final String[] TIERS = {"simple", "medium", "hard"};
 
+    private static class TierResult {
+        final int passed;
+        final int failed;
+        final double totalMs;
+
+        TierResult(int passed, int failed, double totalMs) {
+            this.passed = passed;
+            this.failed = failed;
+            this.totalMs = totalMs;
+        }
+    }
+
     public static void main(String[] args) throws IOException {
         int totalPassed = 0;
         int totalFailed = 0;
+        TierResult hardResult = null;
 
         for (String tier : TIERS) {
             System.out.println("\n--- " + tier + " ---");
-            int[] result = runTier(tier);
-            totalPassed += result[0];
-            totalFailed += result[1];
-            System.out.println(tier + ": " + result[0] + " passed, " + result[1] + " failed");
+            TierResult result = runTier(tier);
+            totalPassed += result.passed;
+            totalFailed += result.failed;
+            System.out.printf("%s: %d passed, %d failed, total %.1fms%n",
+                    tier, result.passed, result.failed, result.totalMs);
+            if (tier.equals("hard")) {
+                hardResult = result;
+            }
         }
 
         System.out.println();
         System.out.println("TOTAL: " + totalPassed + " passed, " + totalFailed + " failed out of "
                 + (totalPassed + totalFailed));
+        System.out.printf("Hard tier: %d/%d passed, %.1fms total%n",
+                hardResult.passed, hardResult.passed + hardResult.failed, hardResult.totalMs);
+        System.out.println("Efficiency band: "
+                + efficiencyBand(hardResult.failed == 0, hardResult.totalMs));
 
         if (totalFailed > 0) {
             System.exit(1);
         }
     }
 
-    private static int[] runTier(String tier) throws IOException {
+    private static String efficiencyBand(boolean hardAllPassed, double hardTotalMs) {
+        if (!hardAllPassed) {
+            return "N/A -- hard tier did not fully pass";
+        }
+        if (hardTotalMs < 2000) {
+            return "Efficient (< 2s total)";
+        }
+        if (hardTotalMs < 10000) {
+            return "Adequate (2-10s total)";
+        }
+        return "Slow (> 10s total) -- worth revisiting your approach";
+    }
+
+    private static TierResult runTier(String tier) throws IOException {
         List<TestData.TestCase> cases = TestData.loadTier(tier);
         int passed = 0;
         int failed = 0;
+        double totalMs = 0;
 
         for (TestData.TestCase c : cases) {
             String status;
@@ -63,10 +98,11 @@ public class TestRunner {
                 failed++;
             }
             double elapsedMs = (System.nanoTime() - start) / 1_000_000.0;
+            totalMs += elapsedMs;
             System.out.printf("[%s] %s/%s: expected=%d actual=%s (%.1fms)%n",
                     status, tier, c.name, c.expected, actualStr, elapsedMs);
         }
 
-        return new int[] {passed, failed};
+        return new TierResult(passed, failed, totalMs);
     }
 }
